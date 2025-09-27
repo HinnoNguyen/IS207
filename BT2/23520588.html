@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giới thiệu bản thân</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="#gioithieu">Giới thiệu bản thân</a>
+        <a href="#lienhe">Liên hệ</a>
+    </nav>
+
+    <div id="gioithieu">
+        <!-- Cột thông tin -->
+        <div class="info">
+            <h1>Giới thiệu bản thân</h1>
+
+            <h2>Thông tin cơ bản</h2>
+            <ul>
+                <li>Họ và tên: Nguyễn Lan Hương</li>
+                <li>Mã số sinh viên: 23520588</li>
+                <li>Ngành học: Hệ thống thông tin</li>
+                <li>Ngày sinh: 23/06/2005</li>
+                <li>Nghề nghiệp: Sinh viên</li>
+            </ul>
+
+            <h2>Sở thích</h2>
+            <h3>Món ăn</h3>
+            <ul>
+                <li>Phở bò</li>
+                <li>Bánh mì</li>
+                <li>Cơm tấm</li>
+            </ul>
+
+            <h3>Giải trí</h3>
+            <ol>
+                <li>Trò chơi
+                    <ul>
+                        <li>Honkai: Star Rail</li>
+                        <li>Genshin Impact</li>
+                    </ul>
+                </li>
+                <li>Bài hát yêu thích
+                    <ul>
+                        <li>Take the journey</li>
+                        <li>TruE</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Mục tiêu của bản thân</h2>
+            <table>
+                <tr>
+                    <th>Mục tiêu</th>
+                    <th>Thời hạn</th>
+                    <th>Hoàn thành</th>
+                </tr>
+                <tr>
+                    <td>Qua môn Web</td>
+                    <td>22/12/2025</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Data Science Oficial Staff</td>
+                    <td>23/12/2025</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Tốt nghiệp</td>
+                    <td>31/12/2026</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Cột ảnh -->
+        <div class="avatar">
+            <img src="https://i.pinimg.com/736x/41/71/e5/4171e5e34b22a120d57d91e3d6a6e7c7.jpg" 
+                 alt="Ảnh đại diện của tôi" width="200" height="200">
+        </div>
+    </div>
+
+    <div id="lienhe">
+        <h2>Gửi thông tin và giao lưu cùng tôi</h2>
+        <form>
+            <label for="name">Họ tên:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Số điện thoại:</label><br>
+            <input type="tel" id="phone" name="phone"><br><br>
+
+            <label for="major">Ngành:</label><br>
+            <select id="major" name="major">
+                <option value="HTTT">Hệ thống thông tin</option>
+                <option value="KHMT">Khoa học máy tính</option>
+                <option value="TTNT">Trí tuệ nhân tạo</option>
+                <option value="KTPM">Kỹ thuật phần mềm</option>
+                <option value="ATTT">An toàn thông tin</option>
+                <option value="MMTTTDT">Mạng máy tính & Truyền thông dữ liệu</option>
+                <option value="KHDL">Khoa học dữ liệu</option>
+                <option value="KTMT">Kỹ thuật máy tính</option>
+                <option value="TMDT">Thương mại điện tử</option>
+            </select><br><br>
+
+            <label for="message">Lời nhắn:</label><br>
+            <textarea id="message" name="message" rows="4" cols="40"></textarea><br><br>
+
+            <input type="submit" value="Gửi">
+        </form>
+    </div>
+
+    <footer>
+        <p>@2025 23520588 Nguyễn Lan Hương</p>
+    </footer>
+
+</body>
+</html>
