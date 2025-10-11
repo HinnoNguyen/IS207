@@ -84,12 +84,14 @@
 
     <div id="lienhe">
         <h2>Gửi thông tin và giao lưu cùng tôi</h2>
-        <form>
+        <form id="contactForm">
             <label for="name">Họ tên:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+            <input type="text" id="name" name="name"><br>
+            <p class="error" id="nameError"></p>
 
             <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required><br><br>
+            <input type="email" id="email" name="email"><br>
+            <p class="error" id="emailError"></p>
 
             <label for="phone">Số điện thoại:</label><br>
             <input type="tel" id="phone" name="phone"><br><br>
@@ -108,7 +110,8 @@
             </select><br><br>
 
             <label for="message">Lời nhắn:</label><br>
-            <textarea id="message" name="message" rows="4" cols="40"></textarea><br><br>
+            <textarea id="message" name="message" rows="4" cols="40"></textarea><br>
+            <p class="error" id="messageError"></p>
 
             <input type="submit" value="Gửi">
         </form>
@@ -118,5 +121,6 @@
         <p>@2025 23520588 Nguyễn Lan Hương</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>

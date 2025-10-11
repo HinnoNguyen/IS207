@@ -107,3 +107,63 @@ tr.completed {
     text-decoration: line-through;
     color: #888;
 }
+
+/* Error messages */
+.error {
+    color: #ff0000;
+    font-size: 13px;
+    margin: 5px 0 10px 0;
+    min-height: 18px;
+    font-weight: 500;
+}
+
+/* Back to top button hover effect */
+#backToTop {
+    transition: all 0.3s ease;
+    font-weight: bold;
+    z-index: 1000;
+}
+#backToTop:hover {
+    background: #005fa3 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4) !important;
+}
+
+/* Avatar transition */
+.avatar img {
+    transition: transform 0.3s ease, border 0.3s ease;
+}
+
+/* Form styling improvements */
+#lienhe input[type="text"],
+#lienhe input[type="email"],
+#lienhe input[type="tel"],
+#lienhe textarea,
+#lienhe select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#lienhe input[type="submit"] {
+    background-color: #0077cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#lienhe input[type="submit"]:hover {
+    background-color: #005fa3;
+}
+
+#lienhe input.input-error {
+    border-color: #ff0000;
+}
