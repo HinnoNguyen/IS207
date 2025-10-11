@@ -43,6 +43,17 @@ document.querySelectorAll("table input[type='checkbox']").forEach((checkbox) => 
     });
 });
 
+document.querySelectorAll("table input[type='checkbox']").forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+        const row = this.closest("tr");
+        if (this.checked) {
+            row.classList.add("completed");
+        } else {
+            row.classList.remove("completed");
+        }
+    });
+});
+
 // ==========================
 // C. HIỆU ỨNG ẢNH ĐẠI DIỆN
 // ==========================

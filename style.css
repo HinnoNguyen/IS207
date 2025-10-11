@@ -101,3 +101,9 @@ footer {
     font-size: 14px;
     margin-top: 30px;
 }
+
+tr.completed {
+    background-color: #c6f5c6 !important;
+    text-decoration: line-through;
+    color: #888;
+}
