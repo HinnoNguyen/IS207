@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 5 - Chỉnh sửa giỏ hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #FFEDCA;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        input[type="number"] {
+            text-align: right;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #da190b;
+        }
+        .total-row {
+            background-color: #e8f5e8;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .product-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .price-cell {
+            text-align: right;
+        }
+        .subtotal-cell {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chỉnh sửa giỏ hàng</h1>
+        
+        <table id="cartTable">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody id="cartBody">
+                <tr>
+                    <td class="product-name">IPhone 11 Pro Max 64GB</td>
+                    <td><input type="number" value="2" min="1" onchange="updateSubtotal(this)"></td>
+                    <td class="price-cell"><input type="text" value="31000000" onchange="updateSubtotal(this)"></td>
+                    <td class="subtotal-cell">62000000</td>
+                    <td><button onclick="removeItem(this)">Xóa</button></td>
+                </tr>
+                <tr>
+                    <td class="product-name">Samsung Galaxy Note 10+</td>
+                    <td><input type="number" value="1" min="1" onchange="updateSubtotal(this)"></td>
+                    <td class="price-cell"><input type="text" value="16000000" onchange="updateSubtotal(this)"></td>
+                    <td class="subtotal-cell">16000000</td>
+                    <td><button onclick="removeItem(this)">Xóa</button></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="4">Tổng tiền</td>
+                    <td id="totalAmount">78000000</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        function updateSubtotal(input) {
+            const row = input.closest('tr');
+            const quantityInput = row.querySelector('input[type="number"]');
+            const priceInput = row.querySelector('input[type="text"]');
+            const subtotalCell = row.querySelector('.subtotal-cell');
+            
+            const quantity = parseInt(quantityInput.value) || 0;
+            const price = parseInt(priceInput.value.replace(/\D/g, '')) || 0;
+            const subtotal = quantity * price;
+            
+            subtotalCell.textContent = subtotal.toLocaleString('vi-VN');
+            
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const subtotalCells = document.querySelectorAll('.subtotal-cell');
+            let total = 0;
+            
+            subtotalCells.forEach(cell => {
+                const value = parseInt(cell.textContent.replace(/\D/g, '')) || 0;
+                total += value;
+            });
+            
+            document.getElementById('totalAmount').textContent = total.toLocaleString('vi-VN');
+        }
+
+        function removeItem(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateTotal();
+        }
+
+        // Format số khi nhập vào ô đơn giá
+        document.addEventListener('input', function(e) {
+            if (e.target.type === 'text' && e.target.closest('.price-cell')) {
+                const value = e.target.value.replace(/\D/g, '');
+                e.target.value = value;
+            }
+        });
+
+        // Khởi tạo tổng tiền
+        updateTotal();
+    </script>
+</body>
+</html>

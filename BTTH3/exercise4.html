@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 4 - Mua vé xem phim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result-table th, .result-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .result-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .total-row {
+            background-color: #e8f5e8;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mua vé</h1>
+        
+        <form id="ticketForm">
+            <div class="form-group">
+                <label for="showDate">Ngày chiếu:</label>
+                <input type="text" id="showDate" placeholder="dd/mm/yyyy" value="05/07/2020">
+            </div>
+            
+            <div class="form-group">
+                <label for="movie">Phim:</label>
+                <select id="movie">
+                    <option value="">Phim</option>
+                    <option value="yeuembatchap">Yêu em bất chấp</option>
+                    <option value="phimkhac">Phim khác</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="showtime">Suất chiếu:</label>
+                <select id="showtime">
+                    <option value="">Suất chiếu</option>
+                    <option value="14h-17h">14h – 17h</option>
+                    <option value="17h-20h">17h – 20h</option>
+                    <option value="20h-23h">20h – 23h</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="theater">Phòng chiếu:</label>
+                <select id="theater">
+                    <option value="">Phòng chiếu</option>
+                    <option value="vang">Vàng</option>
+                    <option value="bac">Bạc</option>
+                    <option value="kimcuong">Kim cương</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="seat">Chọn chỗ ngồi:</label>
+                <select id="seat" multiple>
+                    <option value="ghe01">Ghế 01</option>
+                    <option value="ghe02">Ghế 02</option>
+                    <option value="ghe03">Ghế 03</option>
+                    <option value="ghe04">Ghế 04</option>
+                </select>
+            </div>
+            
+            <button type="button" onclick="buyTicket()">Mua vé</button>
+        </form>
+        
+        <div class="result-section" id="resultSection">
+            <h2>Thông tin vé</h2>
+            <table class="result-table" id="resultTable">
+                <tr>
+                    <th>Khách hàng</th>
+                    <td id="customerName">Nguyễn Văn A</td>
+                </tr>
+                <tr>
+                    <th>Ngày chiếu</th>
+                    <td id="resultShowDate"></td>
+                </tr>
+                <tr>
+                    <th>Phim</th>
+                    <td id="resultMovie"></td>
+                </tr>
+                <tr>
+                    <th>Suất chiếu</th>
+                    <td id="resultShowtime"></td>
+                </tr>
+                <tr>
+                    <th>Phòng chiếu</th>
+                    <td id="resultTheater"></td>
+                </tr>
+                <tr>
+                    <th>Ghế</th>
+                    <td id="resultSeats"></td>
+                </tr>
+                <tr class="total-row">
+                    <th>Tổng tiền</th>
+                    <td id="totalAmount">0₫</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const showtimePrices = {
+            '14h-17h': 1.0,
+            '17h-20h': 1.5,
+            '20h-23h': 2.0
+        };
+
+        const theaterPrices = {
+            'vang': 55000,
+            'bac': 45000,
+            'kimcuong': 75000
+        };
+
+        const movieNames = {
+            'yeuembatchap': 'Yêu em bất chấp',
+            'phimkhac': 'Phim khác'
+        };
+
+        const theaterNames = {
+            'vang': 'Vàng',
+            'bac': 'Bạc',
+            'kimcuong': 'Kim cương'
+        };
+
+        function buyTicket() {
+            const showDate = document.getElementById('showDate').value;
+            const movie = document.getElementById('movie').value;
+            const showtime = document.getElementById('showtime').value;
+            const theater = document.getElementById('theater').value;
+            const selectedSeats = Array.from(document.getElementById('seat').selectedOptions);
+
+            // Kiểm tra thông tin bắt buộc
+            if (!showDate || !movie || !showtime || !theater || selectedSeats.length === 0) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            // Cập nhật thông tin hiển thị
+            document.getElementById('resultShowDate').textContent = showDate;
+            document.getElementById('resultMovie').textContent = movieNames[movie] || movie;
+            document.getElementById('resultShowtime').textContent = showtime;
+            document.getElementById('resultTheater').textContent = theaterNames[theater] || theater;
+
+            // Hiển thị ghế đã chọn
+            const seatNames = selectedSeats.map(option => option.textContent).join(', ');
+            document.getElementById('resultSeats').textContent = seatNames;
+
+            // Tính tổng tiền
+            const showtimeMultiplier = showtimePrices[showtime] || 1;
+            const basePrice = theaterPrices[theater] || 50000;
+            const ticketPrice = Math.round(basePrice * showtimeMultiplier);
+            const totalAmount = ticketPrice * selectedSeats.length;
+
+            document.getElementById('totalAmount').textContent = totalAmount.toLocaleString('vi-VN') + '₫';
+
+            // Hiển thị kết quả
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        // Tự động cập nhật giá vé khi thay đổi suất chiếu hoặc phòng chiếu
+        document.getElementById('showtime').addEventListener('change', updatePrice);
+        document.getElementById('theater').addEventListener('change', updatePrice);
+
+        function updatePrice() {
+            const showtime = document.getElementById('showtime').value;
+            const theater = document.getElementById('theater').value;
+            
+            if (showtime && theater) {
+                const showtimeMultiplier = showtimePrices[showtime] || 1;
+                const basePrice = theaterPrices[theater] || 50000;
+                const ticketPrice = Math.round(basePrice * showtimeMultiplier);
+                
+                // Có thể hiển thị giá vé dự kiến ở đây nếu cần
+                console.log(`Giá vé dự kiến: ${ticketPrice.toLocaleString('vi-VN')}₫`);
+            }
+        }
+    </script>
+</body>
+</html>

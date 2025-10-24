@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 6 - Đăng ký thông tin du lịch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #FFDD99;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            background-color: #FFE4B5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .guest-count {
+            display: flex;
+            gap: 20px;
+        }
+        .guest-count > div {
+            flex: 1;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result-table th, .result-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .result-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .tour-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Phiếu đăng ký tour du lịch</h1>
+        
+        <form id="tourForm">
+            <div class="form-group">
+                <label for="customerName">Họ và tên khách:</label>
+                <input type="text" id="customerName" value="Nguyễn Văn A">
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" value="abc, xyz, jqk">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Điện thoại:</label>
+                <input type="text" id="phone" value="09xxxxxx">
+            </div>
+            
+            <div class="form-group">
+                <label for="tour">Tour:</label>
+                <select id="tour">
+                    <option value="">Chọn tour</option>
+                    <option value="hanoi-halong">Hà Nội – Hạ Long - Tuần Châu</option>
+                    <option value="hanoi-sapa">Hà Nội - Sapa</option>
+                    <option value="danang-hoian">Đà Nẵng – Hội An</option>
+                    <option value="buonme-kontum">Buôn Mê Thuộc - Kon Tum</option>
+                    <option value="hcm-nhatrang">TP.HCM - Nha Trang</option>
+                    <option value="hcm-cantho">TP.HCM - Cần Thơ - Cà Mau</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Số lượng đoàn khách:</label>
+                <div class="guest-count">
+                    <div>
+                        <label for="adults">Người lớn:</label>
+                        <input type="text" id="adults" value="1">
+                    </div>
+                    <div>
+                        <label for="children">Trẻ em:</label>
+                        <input type="text" id="children" value="0">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Ghi chú:</label>
+                <textarea id="notes" placeholder="Nhập ghi chú nếu có..."></textarea>
+            </div>
+            
+            <button type="button" onclick="registerTour()">Đăng ký</button>
+        </form>
+        
+        <div class="tour-info">
+            <h3>Thông tin tour và giá:</h3>
+            <ul>
+                <li>Hà Nội – Hạ Long - Tuần Châu: 10.000.000₫</li>
+                <li>Hà Nội - Sapa: 6.000.000₫</li>
+                <li>Đà Nẵng – Hội An: 3.000.000₫</li>
+                <li>Buôn Mê Thuộc - Kon Tum: 2.000.000₫</li>
+                <li>TP.HCM - Nha Trang: 3.500.000₫</li>
+                <li>TP.HCM - Cần Thơ - Cà Mau: 2.500.000₫</li>
+            </ul>
+            <p><strong>Lưu ý:</strong> Giá tour cho trẻ em bằng 50% giá tour người lớn.</p>
+        </div>
+        
+        <div class="result-section" id="resultSection">
+            <h2>Thông tin đăng ký</h2>
+            <table class="result-table" id="resultTable">
+                <tr>
+                    <th>Ngày đăng ký</th>
+                    <td id="registrationDate">Thứ 2, 05/08/2020, 13:00</td>
+                </tr>
+                <tr>
+                    <th>Nhân Viên</th>
+                    <td id="employeeName">Họ tên nhân viên</td>
+                </tr>
+                <tr>
+                    <th>Họ tên khách</th>
+                    <td id="resultCustomerName"></td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td id="resultAddress"></td>
+                </tr>
+                <tr>
+                    <th>Tour</th>
+                    <td id="resultTour"></td>
+                </tr>
+                <tr>
+                    <th>Ghi chú</th>
+                    <td id="resultNotes"></td>
+                </tr>
+                <tr>
+                    <th>Số lượng đoàn khách</th>
+                    <td id="guestCount"></td>
+                </tr>
+                <tr>
+                    <th>Tổng tiền</th>
+                    <td id="totalCost"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const tourPrices = {
+            'hanoi-halong': 10000000,
+            'hanoi-sapa': 6000000,
+            'danang-hoian': 3000000,
+            'buonme-kontum': 2000000,
+            'hcm-nhatrang': 3500000,
+            'hcm-cantho': 2500000
+        };
+
+        const tourNames = {
+            'hanoi-halong': 'Hà Nội – Hạ Long - Tuần Châu',
+            'hanoi-sapa': 'Hà Nội - Sapa',
+            'danang-hoian': 'Đà Nẵng – Hội An',
+            'buonme-kontum': 'Buôn Mê Thuộc - Kon Tum',
+            'hcm-nhatrang': 'TP.HCM - Nha Trang',
+            'hcm-cantho': 'TP.HCM - Cần Thơ - Cà Mau'
+        };
+
+        function registerTour() {
+            const customerName = document.getElementById('customerName').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const tour = document.getElementById('tour').value;
+            const adults = parseInt(document.getElementById('adults').value) || 0;
+            const children = parseInt(document.getElementById('children').value) || 0;
+            const notes = document.getElementById('notes').value;
+
+            // Kiểm tra thông tin bắt buộc
+            if (!customerName || !address || !phone || !tour) {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+                return;
+            }
+
+            if (adults === 0 && children === 0) {
+                alert('Vui lòng nhập số lượng khách!');
+                return;
+            }
+
+            // Cập nhật thông tin hiển thị
+            document.getElementById('resultCustomerName').textContent = customerName;
+            document.getElementById('resultAddress').textContent = address;
+            document.getElementById('resultTour').textContent = tourNames[tour] || tour;
+            document.getElementById('resultNotes').textContent = notes || 'Không có';
+            document.getElementById('guestCount').textContent = `Người lớn: ${adults}, Trẻ em: ${children}`;
+
+            // Tính tổng tiền
+            const adultPrice = tourPrices[tour] || 0;
+            const childPrice = adultPrice * 0.5; // Trẻ em bằng 50% giá người lớn
+            const totalCost = (adultPrice * adults) + (childPrice * children);
+
+            document.getElementById('totalCost').textContent = totalCost.toLocaleString('vi-VN') + '₫';
+
+            // Hiển thị kết quả
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        // Cập nhật giá tour khi chọn tour
+        document.getElementById('tour').addEventListener('change', function() {
+            const selectedTour = this.value;
+            if (selectedTour && tourPrices[selectedTour]) {
+                const price = tourPrices[selectedTour];
+                console.log(`Giá tour: ${price.toLocaleString('vi-VN')}₫`);
+            }
+        });
+    </script>
+</body>
+</html>

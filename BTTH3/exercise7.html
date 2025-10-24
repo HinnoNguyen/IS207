@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 7 - Đăng ký thông tin CV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #FFACCA;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            background-color: #FFE4E1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .skill-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .skill-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .skill-inputs input[type="text"] {
+            flex: 1;
+        }
+        .skill-inputs input[type="range"] {
+            flex: 2;
+        }
+        .skill-inputs span {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .skill-list {
+            margin-top: 15px;
+        }
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            margin: 5px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .skill-name {
+            font-weight: bold;
+        }
+        .skill-level {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .progress-bar {
+            width: 200px;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .register-btn {
+            background-color: #2196F3;
+            padding: 15px 30px;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        .register-btn:hover {
+            background-color: #1976D2;
+        }
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+        .profile-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .profile-info {
+            text-align: left;
+            margin: 20px 0;
+        }
+        .profile-info div {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile-info i {
+            width: 20px;
+            text-align: center;
+        }
+        .skills-section {
+            margin-top: 20px;
+        }
+        .skills-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Đăng ký CV</h1>
+        
+        <form id="cvForm">
+            <div class="form-group">
+                <label for="fullName">Họ và tên:</label>
+                <input type="text" id="fullName" value="Nguyễn Văn C">
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" value="TP.HCM">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Điện thoại:</label>
+                <input type="text" id="phone" value="0900000000">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" value="ex@mail.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="occupation">Nghề nghiệp:</label>
+                <input type="text" id="occupation" value="Designer">
+            </div>
+            
+            <div class="form-group">
+                <label for="avatar">Ảnh đại diện:</label>
+                <input type="file" id="avatar" accept="image/*">
+            </div>
+            
+            <div class="skill-section">
+                <h3>Kỹ năng</h3>
+                <div class="skill-inputs">
+                    <input type="text" id="skillName" placeholder="Tên kỹ năng" value="Node JS">
+                    <input type="range" id="skillLevel" min="0" max="100" step="10" value="90">
+                    <span id="levelValue">90</span>
+                    <button type="button" onclick="addSkill()">Thêm</button>
+                </div>
+                
+                <div class="skill-list" id="skillList">
+                    <!-- Skills will be added here -->
+                </div>
+            </div>
+            
+            <button type="button" class="register-btn" onclick="registerCV()">Đăng ký</button>
+        </form>
+        
+        <div class="result-section" id="resultSection">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">👤</div>
+                <div class="profile-info">
+                    <div id="profileName">Nguyễn Văn C</div>
+                    <div><i>💼</i> <span id="profileOccupation">Designer</span></div>
+                    <div><i>🏠</i> <span id="profileAddress">Tp. HCM</span></div>
+                    <div><i>✉️</i> <span id="profileEmail">ex@mail.com</span></div>
+                    <div><i>📞</i> <span id="profilePhone">0900000000</span></div>
+                </div>
+                
+                <div class="skills-section">
+                    <h3>Kỹ năng</h3>
+                    <div id="profileSkills">
+                        <!-- Skills will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let skills = [];
+
+        // Update level value display
+        document.getElementById('skillLevel').addEventListener('input', function() {
+            document.getElementById('levelValue').textContent = this.value;
+        });
+
+        function addSkill() {
+            const skillName = document.getElementById('skillName').value.trim();
+            const skillLevel = parseInt(document.getElementById('skillLevel').value);
+
+            if (!skillName) {
+                alert('Vui lòng nhập tên kỹ năng!');
+                return;
+            }
+
+            // Check if skill already exists
+            const existingSkill = skills.find(skill => skill.name.toLowerCase() === skillName.toLowerCase());
+            if (existingSkill) {
+                alert('Kỹ năng này đã tồn tại!');
+                return;
+            }
+
+            const skill = {
+                name: skillName,
+                level: skillLevel
+            };
+
+            skills.push(skill);
+            updateSkillList();
+            
+            // Clear inputs
+            document.getElementById('skillName').value = '';
+            document.getElementById('skillLevel').value = 90;
+            document.getElementById('levelValue').textContent = '90';
+        }
+
+        function updateSkillList() {
+            const skillList = document.getElementById('skillList');
+            skillList.innerHTML = '';
+
+            skills.forEach((skill, index) => {
+                const skillItem = document.createElement('div');
+                skillItem.className = 'skill-item';
+                skillItem.innerHTML = `
+                    <div class="skill-name">${skill.name}</div>
+                    <div class="skill-level">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${skill.level}%"></div>
+                        </div>
+                        <span class="progress-text">${skill.level}%</span>
+                        <button onclick="removeSkill(${index})" style="background-color: #f44336; padding: 5px 10px; font-size: 12px;">Xóa</button>
+                    </div>
+                `;
+                skillList.appendChild(skillItem);
+            });
+        }
+
+        function removeSkill(index) {
+            skills.splice(index, 1);
+            updateSkillList();
+        }
+
+        function registerCV() {
+            const fullName = document.getElementById('fullName').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const occupation = document.getElementById('occupation').value;
+
+            if (!fullName || !address || !phone || !email || !occupation) {
+                alert('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+
+            if (skills.length === 0) {
+                alert('Vui lòng thêm ít nhất một kỹ năng!');
+                return;
+            }
+
+            // Update profile display
+            document.getElementById('profileName').textContent = fullName;
+            document.getElementById('profileOccupation').textContent = occupation;
+            document.getElementById('profileAddress').textContent = address;
+            document.getElementById('profileEmail').textContent = email;
+            document.getElementById('profilePhone').textContent = phone;
+
+            // Update skills display
+            const profileSkills = document.getElementById('profileSkills');
+            profileSkills.innerHTML = '';
+
+            skills.forEach(skill => {
+                const skillDiv = document.createElement('div');
+                skillDiv.className = 'skill-item';
+                skillDiv.innerHTML = `
+                    <div class="skill-name">${skill.name}</div>
+                    <div class="skill-level">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${skill.level}%"></div>
+                        </div>
+                        <span class="progress-text">${skill.level}%</span>
+                    </div>
+                `;
+                profileSkills.appendChild(skillDiv);
+            });
+
+            // Handle avatar upload
+            const avatarInput = document.getElementById('avatar');
+            if (avatarInput.files && avatarInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileAvatar').style.backgroundImage = `url(${e.target.result})`;
+                    document.getElementById('profileAvatar').style.backgroundSize = 'cover';
+                    document.getElementById('profileAvatar').style.backgroundPosition = 'center';
+                    document.getElementById('profileAvatar').textContent = '';
+                };
+                reader.readAsDataURL(avatarInput.files[0]);
+            }
+
+            // Show result
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        // Allow Enter key to add skill
+        document.getElementById('skillName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addSkill();
+            }
+        });
+    </script>
+</body>
+</html>
